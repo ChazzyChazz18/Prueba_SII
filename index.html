@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Components -->
+    <script src="components/card.js"></script>
+    <script src="components/header.js"></script>  
+    <script src="components/month_day.js"></script> 
+    <script src="components/info_banner.js"></script>
+    <script src="components/section_card.js"></script>   
+    <script src="components/cards_slider.js"></script>
+    <script src="components/bottom_navbar.js"></script>
+    <script src="components/company_banner.js"></script>
+    <script src="components/bottom_navbar_btn.js"></script>
+
+    <title>Prueba S.I.I.</title>
+
+</head>
+
+<body>
+
+    <div id="body-grid-container">
+
+        <header-component></header-component>
+
+        <section class="body-grid-element">
+            <div>
+
+                <info-banner-component class="ripple-effect" title="Planning Ahead" subtext="-$540.52"></info-banner-component>
+
+                <slider-component></slider-component>
+                
+            </div>
+            <hr>
+            <div>
+
+                <info-banner-component title="Last Month Expense" subtext="-$1800.50"></info-banner-component>
+
+                <div id="month-banner">
+                    <month-day-component id="day-test" day="25" month="mar"></month-day-component>
+                    <month-day-component day="26" month="mar" isMarked></month-day-component>
+                    <month-day-component day="27" month="mar"></month-day-component>
+                    <month-day-component day="28" month="mar" isMarked isActive></month-day-component>
+                    <month-day-component day="29" month="mar"></month-day-component>
+                    <month-day-component day="30" month="mar" isMarked></month-day-component>
+                    <month-day-component day="31" month="mar" isMarked></month-day-component>
+                </div>
+
+                <section-card-component></section-card-component>
+
+            </div>
+        </section>
+
+        <bottom-navbar-component></bottom-navbar-component>
+
+    </div>
+
+    <script src="js/main.js"></script>
+    
+</body>
+
+</html>
