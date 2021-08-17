@@ -59,6 +59,12 @@ class BottomNavbar extends HTMLElement {
             #plus-btn:active{
                 transform: scale(0.7);
             }
+
+            @media screen and (max-width: 375px) {
+                #plus-btn{
+                    font-size: 30px;
+                }
+            }
         </style>
 
         <div id="bottom-nav-bar">

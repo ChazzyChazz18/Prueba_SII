@@ -32,10 +32,10 @@ class SectionCard extends HTMLElement {
 
                 background-color: var(--divider-color);
 
-                margin: 5% auto;
+                margin: 2.5% auto;
                 height: auto;
                 width: 100%;
-            }        
+            }
         </style>
             <div id="section-card-container">
                 <div id="section-card">

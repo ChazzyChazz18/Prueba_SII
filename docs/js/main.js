@@ -67,12 +67,11 @@ let rippleElements = document.getElementsByClassName("ripple-effect");
 
 for (let i = 0; i < rippleElements.length; i++) {
     rippleElements[i].addEventListener('touchstart', (e)=> {
-        createRipple(e);
-        //console.log("Hello!");   
+        createRipple(i, e);
     });
 }
 
-function createRipple(event) {
+function createRipple(index, event) {
     const button = event.currentTarget;
 
     const circle = document.createElement("span");
@@ -81,15 +80,17 @@ function createRipple(event) {
     const radius = diameter / 2;
 
     circle.style.width = circle.style.height = `${diameter}px`;
-    circle.style.left = `${event.changedTouches[0].clientX - button.offsetLeft - radius}px`;
-    circle.style.top = `${event.changedTouches[0].clientY - button.offsetTop - radius}px`;
+    circle.style.left = `${event.changedTouches[0].clientX - radius}px`;
+    circle.style.top = `${event.changedTouches[0].clientY - button.offsetTop - diameter}px`;
     circle.classList.add("ripple");
+
+    if(rippleElements[index].parentElement.getAttribute('bgcolor') == "white"){
+        circle.style.backgroundColor = "rgb(240, 240, 240)";
+    }
 
     const ripple = button.getElementsByClassName("ripple")[0];
 
-    if (ripple) {
-        ripple.remove();
-    }
+    if (ripple) { ripple.remove(); }
 
     button.appendChild(circle);
 }
@@ -116,11 +117,14 @@ for (let i = 0; i < navbarBtns.length; i++) {
         }
 
         if(currentNavbarBtnIndex != i && canChangeScreen){
-            //window.scrollTo(0, 0);
-            if(i == 0){ // Spend screen
+            if(i == 0 || i == 1){
+                window.scrollTo(0, 0);
                 canChangeScreen = false;
+            }
+
+            if(i == 0){ // Spend screen
                 spendScreen.style.display = "grid";
-                sectionsContainer.style.left = "0";
+                sectionsContainer.style.transform = "translateX(0)";
 
                 setTimeout(function(){
                     sectionsContainer.style.overflow = "hidden";
@@ -134,9 +138,8 @@ for (let i = 0; i < navbarBtns.length; i++) {
                 },animationTime);
 
             }else if(i == 1){ // Save screen
-                canChangeScreen = false;
                 saveScreen.style.display = "grid";
-                sectionsContainer.style.left = "-100%";
+                sectionsContainer.style.transform = "translateX(-100%)";
                 sectionsContainer.style.overflow = "initial";
 
                 setTimeout(function(){
