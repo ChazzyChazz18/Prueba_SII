@@ -3,7 +3,7 @@ class BottomNavbar extends HTMLElement {
         super();
     }
 
-    connectedCallback() {
+    render () {
         this.innerHTML = `
         <style>
             #bottom-nav-bar{
@@ -13,8 +13,9 @@ class BottomNavbar extends HTMLElement {
                 gap: 4px;
             
                 position: fixed;
-                bottom: 0;
-                width: 100%;
+                top:100vh;
+                transform:translateY(-100%);
+                width: 100vw;
                 height: 64px;
                 box-shadow: 0px 0px 16px rgba(0,0,0,0.15);
 
@@ -51,7 +52,13 @@ class BottomNavbar extends HTMLElement {
                 box-shadow: 0px 0px 12px rgba(0,0,0,0.25);
             
                 background-image: linear-gradient(var(--light-lime-color), var(--dark-aqua-color));
-            }     
+
+                transition: transform 0.1s linear;
+            }
+            
+            #plus-btn:active{
+                transform: scale(0.7);
+            }
         </style>
 
         <div id="bottom-nav-bar">
@@ -59,8 +66,8 @@ class BottomNavbar extends HTMLElement {
             <div>
                 <bottom-navbar-btn-component class="custom-nav" isActive title="Spend" iconText="fa fa-credit-card"></bottom-navbar-btn-component>
                 <bottom-navbar-btn-component class="custom-nav" title="Save" iconText="fa fa-heart-o"></bottom-navbar-btn-component>
-                <bottom-navbar-btn-component class="custom-nav" title="Schedule" iconText="fa fa-calendar-o"></bottom-navbar-btn-component>
-                <bottom-navbar-btn-component class="custom-nav" title="Menu" iconText="fa fa-reorder"></bottom-navbar-btn-component>
+                <bottom-navbar-btn-component class="custom-nav" disabled title="Schedule" iconText="fa fa-calendar-o"></bottom-navbar-btn-component>
+                <bottom-navbar-btn-component class="custom-nav" disabled title="Menu" iconText="fa fa-reorder"></bottom-navbar-btn-component>
             </div>
 
             <div>
@@ -73,16 +80,20 @@ class BottomNavbar extends HTMLElement {
 
         </div>
         `;
-
     }
 
-    /*get title() { return this.hasAttribute('title') ? this.getAttribute('title') : ""; }
+    connectedCallback() {
+        this.render();
+    }
 
-    set title(text) { this.setAttribute('title', text); }
+    static get observedAttributes() {
+        return [];
+    }
 
-    get subtext() { return this.hasAttribute('subtext') ? this.getAttribute('subtext') : ""; }
+    attributeChangedCallback(name, oldValue, newValue) {
+        this.render();
+    }
 
-    set subtext(text) { this.setAttribute('subtext', text); }*/
 }
 
 customElements.define('bottom-navbar-component', BottomNavbar);

@@ -3,7 +3,7 @@ class Card extends HTMLElement {
         super();
     }
 
-    connectedCallback() {
+    render () {
         this.innerHTML = `
         <style>
             /* Outside Card */
@@ -15,7 +15,13 @@ class Card extends HTMLElement {
                 height: 160px;
 
                 background-color: white;
+
+                transition: transform 0.1s linear;
             }
+
+            #card:active{
+                transform: scale(0.9);
+            }         
 
             /* Inside Card */
             #card > div{
@@ -32,8 +38,7 @@ class Card extends HTMLElement {
             #card > div > div:nth-child(1) > div{
                 width: 44px;
                 height: 44px;
-                background-color: gray;
-                content:url(https://www.jing.fm/clipimg/detail/1-10041_28-collection-of-lion-logo-clipart-cartoon-lion.png);
+                content:url();
                 border-radius: 50%;
                 box-shadow: 0px 0px 8px rgba(0,0,0,0.25);
             }
@@ -51,32 +56,47 @@ class Card extends HTMLElement {
             }
         </style>
 
-        <div id="card">
+        <div id="card" class="card">
             <div>
                 <div>
-                    <div></div>
+                    <div style="content:url(${this.iconurl});"></div>
                 </div>
 
                 <div>
-                    -150.52
+                    ${this.primarytext}
                 </div>
 
                 <div>
-                    In a 2 days
+                    ${this.secondarytext}
                 </div>
             </div>
         </div>
         `;
-
     }
 
-    /*get title() { return this.hasAttribute('title') ? this.getAttribute('title') : ""; }
+    connectedCallback() {
+        this.render();
+    }
 
-    set title(text) { this.setAttribute('title', text); }
+    static get observedAttributes() {
+        return ['iconurl','primarytext','secondarytext'];
+    }
 
-    get subtext() { return this.hasAttribute('subtext') ? this.getAttribute('subtext') : ""; }
+    attributeChangedCallback(name, oldValue, newValue) {
+        this.render();
+    }
 
-    set subtext(text) { this.setAttribute('subtext', text); }*/
+    get iconurl() { return this.hasAttribute('iconurl') ? this.getAttribute('iconurl') : ""; }
+
+    set iconurl(text) { this.setAttribute('iconurl', text); }
+
+    get primarytext() { return this.hasAttribute('primarytext') ? this.getAttribute('primarytext') : ""; }
+
+    set primarytext(text) { this.setAttribute('primarytext', text); }
+
+    get secondarytext() { return this.hasAttribute('secondarytext') ? this.getAttribute('secondarytext') : ""; }
+
+    set secondarytext(text) { this.setAttribute('secondarytext', text); }
 }
 
 customElements.define('card-component', Card);

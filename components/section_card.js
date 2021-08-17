@@ -3,7 +3,7 @@ class SectionCard extends HTMLElement {
         super();
     }
 
-    connectedCallback() {
+    render () {
         this.innerHTML = `
         <style>
             /* Card container */
@@ -14,7 +14,7 @@ class SectionCard extends HTMLElement {
             /* Outside Card */
             #section-card{
                 display: grid;
-                border-radius: 25px;
+                border-radius: 15px;
 
                 box-shadow: 0px 0px 16px var(--box-shadow-color);
                 width: 100%;
@@ -27,38 +27,56 @@ class SectionCard extends HTMLElement {
             #section-card > div{
                 display: grid;
                 grid-template-columns: 1fr;
-                grid-template-rows: repeat(5, 64px);
+                grid-template-rows: repeat(${this.elementListSize}, 64px);
                 gap: 1px;
+
+                background-color: var(--divider-color);
 
                 margin: 5% auto;
                 height: auto;
                 width: 100%;
-
-                background-color: #f0f0f0;
             }        
         </style>
             <div id="section-card-container">
                 <div id="section-card">
                     <div>
-                        <company-banner-component iconURL="https://www.seoclerk.com/pics/314539-1Cw53i1420912621.jpg" primaryText="Fenix Enterteiment" secondaryText="-130.92"></company-banner-component>
-                        <company-banner-component iconURL="http://graphicdesignjunction.com/wp-content/uploads/2012/07/business-logo-design-21.jpg" primaryText="Fox Cafe" secondaryText="-328.00"></company-banner-component>
-                        <company-banner-component iconURL="https://us.123rf.com/450wm/glopphy/glopphy1702/glopphy170200127/72841332-saludable-logo-de-la-vida-salud-spa-vector-s%C3%ADmbolo.jpg?ver=6" primaryText="Green Health" secondaryText="-1785.32"></company-banner-component>
-                        <company-banner-component iconURL="https://www.seoclerk.com/pics/314539-1Cw53i1420912621.jpg" primaryText="Fenix Enterteiment" secondaryText="-130.92"></company-banner-component>
-                        <company-banner-component iconURL="http://graphicdesignjunction.com/wp-content/uploads/2012/07/business-logo-design-21.jpg" primaryText="Fox Cafe" secondaryText="-328.00"></company-banner-component>
+                        ${this.elementlist}
                     </div>
                 </div>
             </div>
         `;
-
     }
 
-    /*get title() { return this.hasAttribute('title') ? this.getAttribute('title') : ""; }
+    connectedCallback() {
+        this.render();
+    }
 
-    set title(text) { this.setAttribute('title', text); }
+    static get observedAttributes() {
+        return ['elementlist', 'elementListSize'];
+    }
 
-    get subtext() { return this.hasAttribute('subtext') ? this.getAttribute('subtext') : ""; }
+    attributeChangedCallback(name, oldValue, newValue) {
+        this.render();
+    }
 
-    set subtext(text) { this.setAttribute('subtext', text); }*/
+    get elementlist() { 
+        if(this.hasAttribute('elementlist')){
+            return sectionCardItemListParser(this.getAttribute('elementlist'));
+        }else{
+            return "";
+        } 
+    }
+
+    set elementlist(arrayTxt) { this.setAttribute('elementlist', arrayTxt); }
+
+    get elementlistSize () {
+        return this.getAttribute('elementlistSize');
+    }
+
+    set elementlistSize (size) {
+        this.setAttribute('elementlistSize', size);
+    }
+
 }
 
 customElements.define('section-card-component', SectionCard);

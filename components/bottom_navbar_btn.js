@@ -11,8 +11,13 @@ class BottomNavbarBtn extends HTMLElement {
                 grid-template-columns: 1fr;
                 grid-template-rows: auto;
                 text-align: center;
+
+                transition: transform 0.1s linear;
             }
             
+            .nav-bar-btn:active{
+                transform: scale(1.1);
+            }
             .nav-bar-btn-icon{
                 font-size: 24px;
                 width: 32px;
@@ -41,9 +46,19 @@ class BottomNavbarBtn extends HTMLElement {
                 font-size: 12px;
                 font-weight: bold;
             }
+
+            @media screen and (max-width: 375px) {
+                .nav-bar-btn-icon {
+                    font-size: 20px;
+                }
+
+                .nav-bar-btn-text{
+                    font-size: 10px;
+                }
+            }
         </style>
 
-        <div class="nav-bar-btn">
+        <div class="nav-bar-btn" style="pointer-events: ${this.disabled};">
             <div class="nav-bar-btn-icon ${this.icontext}" style="background-color: ${this.activeiconcolor}; background-image: ${this.activeicongradientcolor}; color: ${this.activeiconcolor};">
 
             </div>
@@ -78,11 +93,15 @@ class BottomNavbarBtn extends HTMLElement {
 
     set isactive(value) { this.setAttribute('isactive', value); }
 
-    get activetextcolor() { return this.hasAttribute('isactive') ? "black" : "var(--inactive-grey-color)"; }
+    get disabled() { return this.hasAttribute('disabled') ? "none" : "all"; }
 
-    get activeiconcolor() { return this.hasAttribute('isactive') ? "var(--dark-aqua-color)" : "var(--inactive-grey-color)"; }
+    set disabled(value) { this.setAttribute('disabled', value); }
 
-    get activeicongradientcolor() { return this.hasAttribute('isactive') ? "linear-gradient(180deg, var(--light-lime-color), var(--dark-aqua-color));" : "linear-gradient(180deg, var(--inactive-grey-color), var(--inactive-grey-color))" }
+    get activetextcolor() { return this.hasAttribute('isactive') && !this.hasAttribute('disabled') ? "black" : "var(--inactive-grey-color)"; }
+
+    get activeiconcolor() { return this.hasAttribute('isactive') && !this.hasAttribute('disabled') ? "var(--dark-aqua-color)" : "var(--inactive-grey-color)"; }
+
+    get activeicongradientcolor() { return this.hasAttribute('isactive') && !this.hasAttribute('disabled') ? "linear-gradient(180deg, var(--light-lime-color), var(--dark-aqua-color));" : "linear-gradient(180deg, var(--inactive-grey-color), var(--inactive-grey-color))" }
 }
 
 customElements.define('bottom-navbar-btn-component', BottomNavbarBtn);

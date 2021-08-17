@@ -5,6 +5,7 @@
     --dark-aqua-color: rgb(47, 190, 190);
     --light-lime-color: rgb(163, 218, 127);
     --inactive-grey-color: rgb(206, 206, 206);
+    --divider-color: rgb(235, 235, 235);
     --box-shadow-color: #d3d3d3;
 }
 
@@ -14,6 +15,8 @@ body{
     width: 100%;
     margin: 0;
     padding: 0;
+
+    user-select: none;
 
     background-color: rgb(240, 240, 240);
 }
@@ -26,6 +29,17 @@ body{
     padding-bottom: 64px;
 }
 
+#sections-container{
+    position: relative;
+    display: grid;
+    grid-template-columns: 100% 100%;
+    grid-template-rows: 1fr;
+    overflow: hidden;
+    left: 0;
+
+    transition: left 0.5s ease;
+}
+
 .body-grid-element{
     display: grid;
 }
@@ -34,9 +48,16 @@ body{
 
 section{
     display: grid;
-    grid-template-rows: 32vh auto;
 
     background-color: rgb(240, 240, 240);
+}
+
+#spend-screen{    
+    grid-template-rows: 32vh auto;    
+}
+
+#save-screen{    
+    grid-template-rows: 64px 64px auto;    
 }
 
 section > div > div > div{
@@ -54,7 +75,7 @@ hr{
 /* Bottom Navbar Section */
 
 /* Ripple effect */
-/*.ripple-effect{
+.ripple-effect{
     position: relative;
     overflow: hidden;
 }
@@ -64,7 +85,7 @@ span.ripple {
     border-radius: 50%;
     transform: scale(0);
     animation: ripple 600ms linear;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.75);
 }
   
 @keyframes ripple {
@@ -72,7 +93,7 @@ span.ripple {
         transform: scale(4);
         opacity: 0;
     }
-}*/
+}
 
 /**/
 #month-banner{

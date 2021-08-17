@@ -1,7 +1,7 @@
 class Header extends HTMLElement {
     constructor() { super(); }
 
-    connectedCallback() {
+    render () {
         this.innerHTML = `
         <style>
             #header-container{
@@ -39,6 +39,12 @@ class Header extends HTMLElement {
                 box-shadow: 0px 0px 4px rgba(0,0,0,0.25);
 
                 background-color: white;
+
+                transition: transform 0.1s linear;
+            }
+
+            header > div > button:active {
+                transform: scale(0.9);
             }
 
             header > div:nth-child(even) {
@@ -51,10 +57,14 @@ class Header extends HTMLElement {
                 border-radius: 50%;
                 margin: auto 0;
                 box-shadow: 0px 0px 4px rgba(0,0,0,0.25);
-                
-                content:url(https://randomuser.me/api/portraits/thumb/men/75.jpg);
 
                 background-color: gray;
+
+                transition: transform 0.1s linear;
+            }
+
+            header > div:nth-child(1) > div:active{
+                transform: scale(0.9);
             }
 
             header > div:nth-child(2){
@@ -79,6 +89,7 @@ class Header extends HTMLElement {
                 color: white;
                 margin: auto 0;
                 font-size: 14px;
+                text-shadow: 0px 0px 4px rgba(0,0,0,0.5);
             }
 
             #header-container > div{
@@ -115,6 +126,12 @@ class Header extends HTMLElement {
                 width: 250px;
                 height: 250px;
             }
+
+            @media screen and (max-width: 375px) {
+                header > div > button {
+                    font-size: 14px;
+                }
+            }
         </style>
 
         <div id="header-container">
@@ -127,24 +144,58 @@ class Header extends HTMLElement {
             <Header class="body-grid-element">
 
                 <div>
-                    <div></div>
+                    <div style="content:url(${this.iconurl});"></div>
                 </div>
 
                 <div>
-                    <button>Payday in a week</button>
+                    <button style="display: ${this.buttonvisibility};">${this.buttontext}</button>
                 </div>
 
                 <div>
-                    <div>Total balance to spend</div>
-                    <div>$5784.55</div>                
+                    <div>${this.bottomleftsecondarytext}</div>
+                    <div>${this.bottomleftprimarytext}</div>                
                 </div>
 
-                <div></div>
+                <div>${this.bottomrighttext}</div>
 
             </Header>
         </div>
         `;
     }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    static get observedAttributes() {
+        return ['iconurl','buttontext','bottomleftprimarytext','bottomleftsecondarytext','bottomrighttext'];
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        this.render();
+    }
+
+    get iconurl() { return this.hasAttribute('iconurl') ? this.getAttribute('iconurl') : ""; }
+
+    set iconurl(text) { this.setAttribute('iconurl', text); }
+
+    get buttontext() { return this.hasAttribute('buttontext') ? this.getAttribute('buttontext') : ""; }
+
+    set buttontext(text) { this.setAttribute('buttontext', text); }
+
+    get bottomleftprimarytext() { return this.hasAttribute('bottomleftprimarytext') ? this.getAttribute('bottomleftprimarytext') : ""; }
+
+    set bottomleftprimarytext(text) { this.setAttribute('bottomleftprimarytext', text); }
+
+    get bottomleftsecondarytext() { return this.hasAttribute('bottomleftsecondarytext') ? this.getAttribute('bottomleftsecondarytext') : ""; }
+
+    set bottomleftsecondarytext(text) { this.setAttribute('bottomleftsecondarytext', text); }
+
+    get bottomrighttext() { return this.hasAttribute('bottomrighttext') ? this.getAttribute('bottomrighttext') : ""; }
+
+    set bottomrighttext(text) { this.setAttribute('bottomrighttext', text); }
+
+    get buttonvisibility () { return this.hasAttribute('buttontext') ? "initial" : "none"}
 }
 
 customElements.define('header-component', Header);

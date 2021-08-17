@@ -14,12 +14,12 @@
     <!-- Components -->
     <script src="components/card.js"></script>
     <script src="components/header.js"></script>  
-    <script src="components/month_day.js"></script> 
+    <script src="components/month_day.js"></script>    
     <script src="components/info_banner.js"></script>
     <script src="components/section_card.js"></script>   
     <script src="components/cards_slider.js"></script>
-    <script src="components/bottom_navbar.js"></script>
-    <script src="components/company_banner.js"></script>
+    <script src="components/list_element.js"></script>
+    <script src="components/bottom_navbar.js"></script>    
     <script src="components/bottom_navbar_btn.js"></script>
 
     <title>Prueba S.I.I.</title>
@@ -30,35 +30,52 @@
 
     <div id="body-grid-container">
 
-        <header-component></header-component>
+        <header-component id="header" iconurl="https://randomuser.me/api/portraits/thumb/men/75.jpg" buttontext="Payday in a week" bottomleftprimarytext="$5784.55" bottomleftsecondarytext="Total balance to spend" bottomrighttext="of 50m"></header-component>
 
-        <section class="body-grid-element">
+        <div id="sections-container">
             <div>
-
-                <info-banner-component class="ripple-effect" title="Planning Ahead" subtext="-$540.52"></info-banner-component>
-
-                <slider-component></slider-component>
-                
+                <section id="spend-screen" class="body-grid-element" >
+                    <div>
+        
+                        <info-banner-component title="Planning Ahead" subtext="-$540.52"></info-banner-component>
+        
+                        <slider-component id="cards-slider"></slider-component>
+                        
+                    </div>
+                    <hr>
+                    <div>
+        
+                        <info-banner-component title="Last Month Expense" subtext="-$1800.50"></info-banner-component>
+        
+                        <div id="month-banner">
+                            <month-day-component class="last-month-day" id="day-test" day="25" month="mar"></month-day-component>
+                            <month-day-component class="last-month-day" day="26" month="mar" ismarked></month-day-component>
+                            <month-day-component class="last-month-day" day="27" month="mar"></month-day-component>
+                            <month-day-component class="last-month-day" day="28" month="mar" ismarked isactive></month-day-component>
+                            <month-day-component class="last-month-day" day="29" month="mar"></month-day-component>
+                            <month-day-component class="last-month-day" day="30" month="mar" ismarked></month-day-component>
+                            <month-day-component class="last-month-day" day="31" month="mar" ismarked></month-day-component>
+                        </div>
+        
+                        <section-card-component id="companies-elements-container"></section-card-component>
+        
+                    </div>
+                </section>
             </div>
-            <hr>
+
             <div>
+                <section id="save-screen" class="body-grid-element">
 
-                <info-banner-component title="Last Month Expense" subtext="-$1800.50"></info-banner-component>
+                    <info-banner-component title="Saving 5% of daily pay" bgcolor="white"></info-banner-component>
+        
+                    <info-banner-component title="Activity" subtext="View All"></info-banner-component>
+        
+                    <section-card-component id="percent-elements-container"></section-card-component>
+        
+                </section>
+            </div>        
 
-                <div id="month-banner">
-                    <month-day-component id="day-test" day="25" month="mar"></month-day-component>
-                    <month-day-component day="26" month="mar" isMarked></month-day-component>
-                    <month-day-component day="27" month="mar"></month-day-component>
-                    <month-day-component day="28" month="mar" isMarked isActive></month-day-component>
-                    <month-day-component day="29" month="mar"></month-day-component>
-                    <month-day-component day="30" month="mar" isMarked></month-day-component>
-                    <month-day-component day="31" month="mar" isMarked></month-day-component>
-                </div>
-
-                <section-card-component></section-card-component>
-
-            </div>
-        </section>
+        </div>
 
         <bottom-navbar-component></bottom-navbar-component>
 

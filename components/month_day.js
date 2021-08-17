@@ -3,7 +3,7 @@ class MonthDay extends HTMLElement {
         super();
     }
 
-    connectedCallback() {
+    render () {
         this.innerHTML = `
         <style>
             #container{
@@ -12,6 +12,12 @@ class MonthDay extends HTMLElement {
                 height: 100%;
                 font-size: 14px;
                 text-align: center;
+
+                transition: transform 0.1s ease-out;
+            }
+
+            #container:active {
+                transform: scale(0.9);
             }
             
             #container > div:nth-child(1){
@@ -33,14 +39,32 @@ class MonthDay extends HTMLElement {
             
                 background-color: var(--dark-aqua-color);
             }
+
+            @media screen and (max-width: 375px) {
+                #container{
+                    font-size: 12px;
+                }
+            }
         </style>
 
         <div id="container">
-            <div style="color: ${this.isActive}">${this.day}</div>
-            <div style="color: ${this.isActive}">${this.month}</div>
-            <div><div style="visibility: ${this.isMarked};"></div></div>
+            <div style="color: ${this.activetextcolor}">${this.day}</div>
+            <div style="color: ${this.activetextcolor}">${this.month}</div>
+            <div><div style="visibility: ${this.ismarked};"></div></div>
         </div>
         `;
+    }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    static get observedAttributes() {
+        return ['day','month','ismarked','isactive'];
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        this.render();
     }
 
     get day() { return this.hasAttribute('day') ? this.getAttribute('day') : ""; }
@@ -51,13 +75,16 @@ class MonthDay extends HTMLElement {
 
     set month(text) { this.setAttribute('month', text); }
 
-    get isMarked() { return this.hasAttribute('isMarked') ? "visible" : "hidden"; }
+    get ismarked() { return this.hasAttribute('ismarked') ? "visible" : "hidden"; }
 
-    set isMarked(value) { this.setAttribute('isMarked', value); }
+    set ismarked(value) { this.setAttribute('ismarked', value); }
 
-    get isActive() { return this.hasAttribute('isActive') ? "black" : "var(--inactive-grey-color)"; }
+    get isactive() { return this.hasAttribute('isactive'); }
 
-    set isActive(value) { this.setAttribute('isActive', value); }
+    set isactive(value) { this.setAttribute('isactive', value); }
+
+    get activetextcolor() { return this.hasAttribute('isactive') ? "black" : "var(--inactive-grey-color)"; }
+
 }
 
 customElements.define('month-day-component', MonthDay);

@@ -3,7 +3,7 @@ class Banner extends HTMLElement {
         super();
     }
 
-    connectedCallback() {
+    render () {
         this.innerHTML = `
         <style>
             #info-banner{
@@ -32,15 +32,36 @@ class Banner extends HTMLElement {
                 font-size: 20px;
                 text-align: right;
             }
+
+            @media screen and (max-width: 375px) {
+                #info-banner > div:nth-child(1) {
+                    font-size: 18px;
+                }
+
+                #info-banner > div:nth-child(2) {
+                    font-size: 12px;
+                }
+            }
         </style>
 
-        <div id="info-banner">
+        <div id="info-banner" class="ripple-effect" style="background-color: ${this.bgcolor}">
             <div>${this.title}</div>
             <div>${this.subtext}</div>
             <div>></div>
         </div>
         `;
+    }
 
+    connectedCallback() {
+        this.render();
+    }
+
+    static get observedAttributes() {
+        return ['title','subtext','bgcolor'];
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        this.render();
     }
 
     get title() { return this.hasAttribute('title') ? this.getAttribute('title') : ""; }
@@ -50,6 +71,10 @@ class Banner extends HTMLElement {
     get subtext() { return this.hasAttribute('subtext') ? this.getAttribute('subtext') : ""; }
 
     set subtext(text) { this.setAttribute('subtext', text); }
+
+    get bgcolor() { return this.hasAttribute('bgcolor') ? this.getAttribute('bgcolor') : "transparent"; }
+
+    set bgcolor(color) { this.setAttribute('bgcolor', color); }
 }
 
 customElements.define('info-banner-component', Banner);
