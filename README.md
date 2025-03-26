@@ -1,2 +1,2 @@
-# Prueba_SII
-Prueba Frontend usando HTML, CSS y vanilla JavaScript
+# Test_SII
+Front end test using HTML, CSS and Vanilla Javascript
